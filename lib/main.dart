@@ -1,3 +1,4 @@
+import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,6 +26,7 @@ class BytebankApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.blueAccent, // Your accent color
         ),
+        buttonColor: Colors.blueAccent,
         buttonTheme: ButtonThemeData(
           buttonColor: Colors.blueAccent,
           textTheme: ButtonTextTheme.primary,
@@ -36,43 +38,42 @@ class BytebankApp extends StatelessWidget {
 }
 
 
+// class Dashboard extends StatelessWidget {
+//   const Dashboard({ Key? key }) : super(key: key);
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Dashboard'),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [      
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset('images/bytebank_logo.png'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(                              
-                padding: EdgeInsets.all(8),
-                height:100,
-                width: 150,
-                color: Theme.of(context).primaryColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.people, color: Colors.white, size: 24,),
-                    Text('Contacts', style: TextStyle(color: Colors.white, fontSize: 16),)
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text('Dashboard'),
+//         ),
+//         body: Column(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [      
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Image.asset('images/bytebank_logo.png'),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Container(                              
+//                 padding: EdgeInsets.all(8),
+//                 height:100,
+//                 width: 150,
+//                 color: Theme.of(context).primaryColor,
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Icon(Icons.people, color: Colors.white, size: 24,),
+//                     Text('Contacts', style: TextStyle(color: Colors.white, fontSize: 16),)
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       );
+//   }
+// }
