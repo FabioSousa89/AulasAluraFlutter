@@ -50,8 +50,8 @@ class _ContactFormState extends State<ContactForm> {
                   onPressed: (){
                     final String name = _nameController.text;
                     final int accountNumber = int.parse(_accountNumberController.text);
-
-                    final Contact newContact = Contact(name, accountNumber);
+                    // TODO: Ajustar um Id dinamico
+                    final Contact newContact = Contact(0, name, accountNumber);
 
                     Navigator.pop(context, newContact);
 

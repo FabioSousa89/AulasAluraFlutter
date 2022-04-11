@@ -1,8 +1,12 @@
+import 'package:bytebank/database/app_database.dart';
+import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const BytebankApp());
+  runApp(const BytebankApp());  
+    findAll().then((contacts) => print(contacts.toString()));
+  
 }
 
 // ThemeData(
