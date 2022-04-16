@@ -3,8 +3,13 @@ import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
 
+  @override
+  State<ContactsList> createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,19 +58,32 @@ class ContactsList extends StatelessWidget {
 
       ),
       
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactForm()))
+      //       .then((newContact) => print(newContact.toString()));
+      //   },
+      //   child: Icon(
+      //     Icons.add
+      //   ),
+      // ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactForm()))
-            .then((newContact) => print(newContact.toString()));
-        },
-        child: Icon(
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const ContactForm())).then((value){
+              setState(() {
+                widget.createState();
+              });
+            }); 
+        },       
+        child: const Icon(
           Icons.add
         ),
       ),
+
     );
   }
-
-  
 }
 
 class _ContactItem extends StatelessWidget {

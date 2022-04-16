@@ -14,10 +14,8 @@ Future<Database> createDatabase(){
         'id INTEGER PRIMARY KEY, '
         'name TEXT, '
         'account_number INTEGER)');
-    }, version: 1,
-    // onUpgrade: (db, oldVersion, newVersion){
-
-    // }
+    }, version: 1 ,
+    //onDowngrade: onDatabaseDowngradeDelete,  
     );
   });
 

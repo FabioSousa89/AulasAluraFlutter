@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(const BytebankApp());  
-    findAll().then((contacts) => print(contacts.toString()));
-  
+    //findAll().then((contacts) => print(contacts.toString()));  
 }
 
 // ThemeData(
