@@ -13,29 +13,41 @@ class ContactsList extends StatelessWidget {
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: [],
-        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+        //future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+        future: findAll(),
         builder: (context, snapshot){
-          final List<Contact> contacts = (snapshot.data as List<Contact>);
 
-          return ListView.builder(
-            itemBuilder: (context, index){
-              final Contact contact = contacts[index];
-              return _ContactItem(contact);
-            },
-            itemCount: contacts.length,        
-          );
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:              
+              break;
+            case ConnectionState.waiting:
+              return  Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [              
+                    CircularProgressIndicator(),
+                    Text('Loanding'),
+                  ],
+                ),
+              );
+              //break;
+            case ConnectionState.active:              
+              break;
+            case ConnectionState.done:
+              final List<Contact> contacts = (snapshot.data as List<Contact>);
+              return ListView.builder(
+                itemBuilder: (context, index){
+                  final Contact contact = contacts[index];
+                  return _ContactItem(contact);
+                },
+                itemCount: contacts.length,        
+              );
+              //break;
+            default:
+          }
 
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [              
-                CircularProgressIndicator(),
-                Text('Loanding'),
-              ],
-            ),
-          );
-          
+          return Text('Unknown error');
 
         },
 
