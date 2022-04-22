@@ -1,4 +1,3 @@
-import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
@@ -19,28 +18,28 @@ class _ContactFormState extends State<ContactForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New contact'),
+        title: const Text('New Transfer'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(          
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Full name',              
               ),
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
             ),
       
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
                 controller: _accountNumberController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Account number',              
                 ),
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
                 keyboardType: TextInputType.number,
               ),
             ),
@@ -57,7 +56,7 @@ class _ContactFormState extends State<ContactForm> {
                     _dao.save(newContact).then((id) => Navigator.pop(context));                   
 
                   }, 
-                  child: Text('Create')
+                  child: const Text('Create')
                 ),
               ),
             )
