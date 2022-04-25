@@ -68,12 +68,9 @@ class _DashboardState extends State<Dashboard> {
       MaterialPageRoute(
         builder: (context) => TransactionsList(),
         ),
-    );
-    
+    );    
   } 
-
 }
-
 
 class _FeatureItem extends StatelessWidget {
 
