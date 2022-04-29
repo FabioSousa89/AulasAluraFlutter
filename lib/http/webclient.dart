@@ -12,7 +12,7 @@ Future<List<Transaction>> findAll()  async {
       interceptors: [LoggingInterceptor()]
     );
 
-    final Response response = await client.get(Uri.parse("http://192.168.86.22:8080/transactions"));
+    final Response response = await client.get(Uri.parse("http://192.168.86.22:8080/transactions")).timeout(Duration(seconds: 5));
 
     final List<dynamic> decodedJson = jsonDecode(response.body);
 
