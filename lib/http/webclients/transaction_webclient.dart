@@ -20,60 +20,27 @@ Future<List<Transaction>> findAll()  async {
 List<Transaction> _toTransactions(Response response) {
   final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = [];
-  for(Map<String, dynamic> e in decodedJson){
-    final Map<String, dynamic> contactJson = e['contact'];
-    final Transaction transaction = Transaction(
-      e['value'], 
-      Contact(
-        0, 
-        contactJson['name'], 
-        contactJson['accountNumber']
-      )
-    );
-    transactions.add(transaction);
+  for(Map<String, dynamic> e in decodedJson){    
+    transactions.add(  Transaction.fromJson(e));
   }
   return transactions;
-}
-
-Future<Transaction> save(Transaction transaction) async {
-
-  Map<String, dynamic> transactionMap = _toMap(transaction);
-  
-  final String transactionJson = jsonEncode(transactionMap);
-  final Response response = await client.post(Uri.parse(baseUrl), headers: {'Content-type': 'application/json',
-    'password': '1000'}, body: transactionJson);
-
-  return _toTransaction(response);
-
-  
-
 }
 
 Transaction _toTransaction(Response response) {
   Map<String, dynamic> json = jsonDecode(response.body);
   
   final Map<String, dynamic> contactJson = json['contact'];
-     return Transaction(
-        json['value'], 
-        Contact(
-          0, 
-          contactJson['name'], 
-          contactJson['accountNumber']
-        )
-      );
+     return Transaction.fromJson(json);
 }
 
-Map<String, dynamic> _toMap(Transaction transaction) {
-  final Map<String, dynamic> transactionMap = {
-    'value' : transaction.value,
-    'contact' : {
-        'name':transaction.contact.name,
-        'accountNumber': transaction.contact.accountNumber
-    }
-  };
-  return transactionMap;
-}
+  Future<Transaction> save(Transaction transaction) async {
 
+    final String transactionJson = jsonEncode(transaction.toJson());
+    final Response response = await client.post(Uri.parse(baseUrl), headers: {'Content-type': 'application/json',
+      'password': '1000'}, body: transactionJson);
+
+    return _toTransaction(response);
+  }
 }
 
 
