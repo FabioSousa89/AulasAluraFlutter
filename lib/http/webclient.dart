@@ -1,7 +1,4 @@
 
-import 'dart:convert';
-import 'package:bytebank/models/contact.dart';
-import 'package:bytebank/models/transaction.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';

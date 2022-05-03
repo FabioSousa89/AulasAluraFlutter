@@ -13,7 +13,7 @@ class Contact{
   }
 
   Contact.fromJson(Map<String, dynamic>json) :
-    id = json['id'],
+    id = json['id'] ?? 0,
     name = json['name'],
     accountNumber = json['accountNumber'];
 
