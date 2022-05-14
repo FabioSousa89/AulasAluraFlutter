@@ -17,18 +17,27 @@ Future<List<Transaction>> findAll()  async {
 Future<Transaction> save(Transaction transaction, String password) async {
 
     final String transactionJson = jsonEncode(transaction.toJson());
-    final Response response = await client.post(Uri.parse(baseUrl), headers: {'Content-type': 'application/json',
-      'password': password}, body: transactionJson);
+    final Response response = await client.post(Uri.parse(baseUrl), 
+      headers: {
+        'Content-type': 'application/json',
+        'password': password}, 
+      body: transactionJson);
 
     if(response.statusCode == 200){
       return Transaction.fromJson(jsonDecode(response.body));
     }
      
-    _throwHttpError(response.statusCode);
-
-    return Transaction.fromJson(jsonDecode(response.body));
+    throw HttpException(_getMessage(response.statusCode)!);
+  
 
   }
+
+String? _getMessage(int statusCode){
+  if (_statusCodeResponses.containsKey(statusCode)) {
+    return _statusCodeResponses[statusCode];
+  }
+  return 'unknow error';
+} 
 
   void _throwHttpError(int statusCode) {
     throw Exception(_statusCodeResponses[statusCode]);
@@ -37,8 +46,16 @@ Future<Transaction> save(Transaction transaction, String password) async {
   static final Map<int, String> _statusCodeResponses ={
     400 : 'there was an error submitting transaction',
     401 : 'authentication failed',
+    409 : 'transaction always exists'
   };
 
 }
 
+
+class HttpException implements Exception{
+
+  final String message;
+  HttpException(this.message);
+
+}
 

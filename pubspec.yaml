@@ -18,6 +18,7 @@ dependencies:
   http:
   http_interceptor: ^1.0.2
   cupertino_icons: ^1.0.2
+  uuid:
 
 dev_dependencies:
   flutter_test:

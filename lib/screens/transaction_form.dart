@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bytebank/components/response_dialog.dart';
 import 'package:bytebank/components/transaction_auth_dialog.dart';
 import 'package:bytebank/http/webclient.dart';
@@ -5,6 +7,7 @@ import 'package:bytebank/http/webclients/transaction_webclient.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class TransactionForm extends StatefulWidget {
   final Contact contact;
@@ -18,9 +21,13 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
   final TransactionWebClient _webClient = TransactionWebClient();
+  final String transactionId = Uuid().v4();
 
   @override
   Widget build(BuildContext context) {
+
+    print('transaction form id $transactionId');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('New transaction'),
@@ -83,19 +90,40 @@ class _TransactionFormState extends State<TransactionForm> {
   }
 
   void _save(Transaction transactionCreated, String password, BuildContext context) async {
-     final Transaction transaction = await _webClient.save(transactionCreated, password).catchError((e){
-      showDialog(context: context, builder: (contextDialog){
-        return FailureDialog(e.message);
-      });
-    }, test: (e) => e is Exception);
- 
+
+    Transaction transaction = await _send(transactionCreated, password, context); 
+
+    _showScuccessfulMessage(transaction, context);
+
+  }
+
+  Future<void> _showScuccessfulMessage(Transaction transaction, BuildContext context) async {
     if(transaction != null){      
       await showDialog(context: context, builder: (contextDialog){
         return SuccessDialog('Successful transaction');
       });   
       Navigator.pop(context);       
     }
+  }
 
+  Future<Transaction> _send(Transaction transactionCreated, String password, BuildContext context) async {
+    final Transaction transaction = await _webClient.save(transactionCreated, password).catchError((e){
+            _showFailureMessage(context, message: e.message);
+        }, test: (e) => e is TimeoutException).catchError((e){
+            _showFailureMessage(context, message: 'timeout submitting the transaction');
+        }, test: (e) => e is HttpException).catchError((e){
+            _showFailureMessage(context, message: e.message);
+        }); 
+    return transaction;
+  }
+
+  void _showFailureMessage(BuildContext context, {String message = 'Unknown error'}) {
+    showDialog(
+      context: context, 
+      builder: (contextDialog)
+    {
+      return FailureDialog(message);
+    });
   }
 
 }
