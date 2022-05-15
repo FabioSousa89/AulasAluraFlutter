@@ -19,9 +19,9 @@
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 .vscode/
-**/doc/api/
-**/ios/Flutter/.last_build_id
-**/build/
+/doc/api/
+/ios/Flutter/.last_build_id
+/build/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -31,9 +31,9 @@
 
 
 # Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-**/build/
+/doc/api/
+/ios/Flutter/.last_build_id
+/build/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -54,3 +54,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+google-services.json
