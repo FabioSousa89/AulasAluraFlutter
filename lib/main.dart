@@ -1,10 +1,13 @@
 import 'dart:async';
-
-import 'package:bytebank/screens/dashboard.dart';
+import 'package:bytebank/models/saldo.dart';
+import 'package:bytebank/models/transferencias.dart';
+import 'package:bytebank/screens/dashboard/dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 void main() async {  
 
@@ -19,9 +22,18 @@ void main() async {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   }
 
-  runZonedGuarded<Future<void>>(() async {
-   runApp(const BytebankApp());
-  }, FirebaseCrashlytics.instance.recordError);
+  // runZonedGuarded<Future<void>>(() async {
+  //  runApp(const BytebankApp());
+  // }, FirebaseCrashlytics.instance.recordError);
+
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => Saldo(0)),
+      ChangeNotifierProvider(create: (context) => Transferencias()),      
+    ],    
+    child: BytebankApp(),
+  ));
 
 }
 
@@ -39,14 +51,13 @@ class BytebankApp extends StatelessWidget {
         primaryColor: Colors.green,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.blueAccent, // Your accent color
-        ),
-        buttonColor: Colors.blueAccent,
+        ),        
         buttonTheme: const ButtonThemeData(
           buttonColor: Colors.blueAccent,
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      home: const Dashboard(),
+      home: Dashboard(),
     );
   }
 }
